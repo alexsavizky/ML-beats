@@ -1,21 +1,27 @@
+
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - ML-Beats</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
 <body>
-    <div id="logo">
-        <img src="{% static 'logo.png' %}" alt="ML-Beats Logo">
-    </div>
-    <div id="file-area">
-        <p>Drag your files here</p>
-    </div>
-    <div id="social-login">
-        <button>Login with Facebook</button>
-        <button>Login with Google</button>
+    <div class="container">
+        <div id="logo">
+            <h1>ML-Beats</h1>
+            <img src="{% static 'logo.png' %}" alt="ML-Beats Logo">
+        </div>
+        <div id="file-area">
+            <p>Drag your files here</p>
+        </div>
+        <div id="social-login">
+            <button>Login with Facebook</button>
+            <button>Login with Google</button>
+        </div>
     </div>
 </body>
 </html>
