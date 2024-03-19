@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class WebpageConfig(AppConfig):
+class LoginPageConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Webpage'
+    name = 'login'
