@@ -579,3 +579,4 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,pycharm+iml,pycharm+all,django,flask
 *.xml
+/Research/Separation/music_files/pretrained_models
