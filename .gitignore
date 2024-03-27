@@ -578,3 +578,14 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,pycharm+iml,pycharm+all,django,flask
+/Research/scrap/raw_music_lofi
+/Research/scrap/raw_music_pop
+*.xml
+Research/Separation/music_files/pretrained_models/2stems/.probe
+Research/Separation/music_files/pretrained_models/2stems/checkpoint
+Research/Separation/music_files/pretrained_models/2stems/._checkpoint
+Research/Separation/music_files/pretrained_models/2stems/model.data-00000-of-00001
+Research/Separation/music_files/pretrained_models/2stems/model.index
+Research/scrap/download_log.csv
+Research/scrap/download_log_pop.csv
+Research/Separation/music_files/pretrained_models/2stems/model.meta
