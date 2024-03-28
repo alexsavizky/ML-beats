@@ -14,8 +14,8 @@
             <img src="{% static 'logo.png' %}" alt="ML-Beats Logo">
         </div>
         <div id="social-login">
-            <button class="social-button">Login with Email</button>
-            <button class="social-button">Login with Google</button>
+            <button class="social-button" id="loginWithEmail">Login with Email</button>
+            <button class="social-button" id="loginWithGoogle">Login with Google</button>
         </div>
         <div id="email-login-form" style="display: none;">
             <form id="loginForm">
@@ -54,6 +54,9 @@
                 </div>
             </form>
         </div>
+        <div id="disconnect-button" style="display: none;">
+            <button class="form-back-btn" id="disconnectButton">Disconnect</button>
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -69,19 +72,24 @@
                 document.getElementById('email-login-form').style.display = 'none';
             };
 
-            // Updated to select all social login buttons except the create account link
-            document.querySelectorAll('.social-button:not(#createAccountLink)').forEach(button => {
-                button.addEventListener('click', showEmailLoginForm);
-            });
+            const showDisconnectButton = () => {
+                document.getElementById('disconnect-button').style.display = 'block';
+                document.getElementById('social-login').style.display = 'none';
+                document.getElementById('email-login-form').style.display = 'none';
+                document.getElementById('registration-form').style.display = 'none';
+            };
+
+            document.getElementById('loginWithEmail').addEventListener('click', showEmailLoginForm);
 
             document.getElementById('backButton').addEventListener('click', function() {
                 document.getElementById('email-login-form').style.display = 'none';
                 document.getElementById('social-login').style.display = 'block';
-                document.getElementById('registration-form').style.display = 'none'; // Ensure registration form is also hidden
+                document.getElementById('registration-form').style.display = 'none';
+                document.getElementById('disconnect-button').style.display = 'none';
             });
 
             document.getElementById('createAccountLink').addEventListener('click', function(e) {
-                e.preventDefault(); // Prevent the link from navigating
+                e.preventDefault();
                 showRegistrationForm();
             });
 
@@ -89,6 +97,23 @@
                 document.getElementById('registration-form').style.display = 'none';
                 document.getElementById('social-login').style.display = 'block';
                 document.getElementById('email-login-form').style.display = 'none';
+                document.getElementById('disconnect-button').style.display = 'none';
+            });
+
+            document.getElementById('disconnectButton').addEventListener('click', function() {
+                document.getElementById('social-login').style.display = 'block';
+                document.getElementById('disconnect-button').style.display = 'none';
+            });
+
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showDisconnectButton();
+            });
+
+            // Disabling login with Google button
+            document.getElementById('loginWithGoogle').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Login with Google is disabled.');
             });
         });
     </script>
