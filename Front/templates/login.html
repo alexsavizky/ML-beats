@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -12,16 +11,42 @@
 <body>
     <div class="container">
         <div id="logo">
-            <h1>ML-Beats</h1>
             <img src="{% static 'logo.png' %}" alt="ML-Beats Logo">
         </div>
-        <div id="file-area">
-            <p>Drag your files here</p>
-        </div>
         <div id="social-login">
-            <button>Login with Facebook</button>
-            <button>Login with Google</button>
+            <button class="social-button">Login with Email</button>
+            <button class="social-button">Login with Google</button>
+        </div>
+        <div id="email-login-form" style="display: none;">
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="form-back-btn" id="backButton">Back</button>
+                    <button type="submit" class="form-submit-btn">Sign in</button>
+                </div>
+                <div class="signup-link">
+                    Not a member? <a href="#">Create Account</a>
+                </div>
+            </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.social-button').addEventListener('click', function() {
+                document.getElementById('email-login-form').style.display = 'block';
+                document.getElementById('social-login').style.display = 'none';
+            });
+
+            document.getElementById('backButton').addEventListener('click', function() {
+                document.getElementById('email-login-form').style.display = 'none';
+                document.getElementById('social-login').style.display = 'block';
+            });
+        });
+    </script>
 </body>
 </html>
