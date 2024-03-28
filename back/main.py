@@ -1,6 +1,7 @@
 import json
-from flask import Flask, redirect, url_for, session
+from flask import Flask, redirect, url_for, session,request
 from authlib.integrations.flask_client import OAuth
+from db import Db
 
 app = Flask(__name__)
 app.secret_key = '123'  # Change this to a random secret key
@@ -30,10 +31,10 @@ google = oauth.register(
 @app.route('/')
 def index():
     email = dict(session).get('email', None)
-    return f'Hello, {email}!' if email else 'Hello, please <a href="/login">login</a>'
+    return f'Hello, {email}!' if email else 'Hello, please <a href="/login_google">login</a>'
 
-@app.route('/login')
-def login():
+@app.route('/login_google')
+def login_with_google():
     redirect_uri = url_for('authorize', _external=True)
     return google.authorize_redirect(redirect_uri)
 
@@ -43,7 +44,31 @@ def authorize():
     resp = google.get('userinfo')
     user_info = resp.json()
     session['email'] = user_info['email']
+    user = (user_info['email'],'none','google',user_info['given_name'],user_info['family_name'])
+    with Db() as db:
+         db.insert_user(user)
+
     return redirect('/')
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    user = (request.form['email'] , request.form['password'], 'email',request.form['first_name'],request.form['last_name'])
+    with Db() as db:
+         db.insert_user(user)
+
+@app.route('/login', methods=['POST'])
+def login_via_email():
+    user = (request.form['email'], request.form['password'])
+    with Db() as db:
+        val = db.login(user)
+    if val:
+        session['email'] = user[0]
+        print('ccol cool cool')
+
+@app.route('/disconnect', methods=['GET'])
+def disconnect():
+    session['email'] = None
+
 
 
 if __name__ == "__main__":
