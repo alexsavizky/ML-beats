@@ -57,6 +57,11 @@
         <div id="disconnect-button" style="display: none;">
             <button class="form-back-btn" id="disconnectButton">Disconnect</button>
         </div>
+        <div id="drop-zone" style="display: none;">
+            <div class="drop-area" id="dropArea">
+                <p>Drag your file here</p>
+            </div>
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -77,6 +82,7 @@
                 document.getElementById('social-login').style.display = 'none';
                 document.getElementById('email-login-form').style.display = 'none';
                 document.getElementById('registration-form').style.display = 'none';
+                document.getElementById('drop-zone').style.display = 'block';
             };
 
             document.getElementById('loginWithEmail').addEventListener('click', showEmailLoginForm);
@@ -86,6 +92,7 @@
                 document.getElementById('social-login').style.display = 'block';
                 document.getElementById('registration-form').style.display = 'none';
                 document.getElementById('disconnect-button').style.display = 'none';
+                document.getElementById('drop-zone').style.display = 'none';
             });
 
             document.getElementById('createAccountLink').addEventListener('click', function(e) {
@@ -98,11 +105,13 @@
                 document.getElementById('social-login').style.display = 'block';
                 document.getElementById('email-login-form').style.display = 'none';
                 document.getElementById('disconnect-button').style.display = 'none';
+                document.getElementById('drop-zone').style.display = 'none';
             });
 
             document.getElementById('disconnectButton').addEventListener('click', function() {
                 document.getElementById('social-login').style.display = 'block';
                 document.getElementById('disconnect-button').style.display = 'none';
+                document.getElementById('drop-zone').style.display = 'none';
             });
 
             document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -115,6 +124,27 @@
                 e.preventDefault();
                 alert('Login with Google is disabled.');
             });
+
+            const dropArea = document.getElementById('dropArea');
+
+            // Prevent default behavior when a file is dragged over the drop area
+            dropArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+
+            // Handle the drop event
+            dropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+            });
+
+            // Function to handle dropped files
+            function handleFiles(files) {
+                for (const file of files) {
+                    console.log('Dropped file:', file.name);
+                }
+            }
         });
     </script>
 </body>
