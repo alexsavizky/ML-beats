@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ML-Beats</title>
+    <link rel="stylesheet" href="../static/styles.css"> <!-- Assuming same CSS file -->
+</head>
+<body>
+    <button id="accessibilityButton" aria-label="Accessibility options">
+        <img src="{{ url_for('static', filename='accessibility.png') }}" alt="Accessibility options">
+    </button>
+    <div class="login-container">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Music Logo" class="login-logo" onclick="location.href='index.html';">
+            <hr class="separator">
+        </div>
+        <form id="loginForm" class="login-form">
+            <input type="email" name="email" placeholder="Email address" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <div id="errorMessage" style="color: red;"></div>
+            <button type="submit">Login</button>
+            <p class="signup-prompt">New member? <a href="/signup">Sign up now</a>.</p>
+
+            <!-- <p class="signup-prompt">New member? <a>Sign up now</a>.</p> -->
+        </form>
+    </div>
+    <script src="../static/loginEmail.js"></script>
+</body>
+
+</html>

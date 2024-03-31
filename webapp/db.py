@@ -32,19 +32,12 @@ class Db:
     # Create a table named Users
     def create_user_table(self):
         self.cursor.execute(
-            "CREATE TABLE Users (id INT AUTO_INCREMENT PRIMARY KEY , email VARCHAR(255) , password VARCHAR(255) , "
+            "CREATE TABLE users (id INT AUTO_INCREMENT PRIMARY KEY , email VARCHAR(255) , password VARCHAR(255) , "
             "access_with VARCHAR(255), first_name VARCHAR(255) , last_name VARCHAR(255))")
 
     def insert_user(self, user):
         email = user[0].lower()
         query = "INSERT INTO users (email, password,access_with,first_name,last_name) VALUES (%s, %s,%s, %s,%s)"
-
-        # check if valid email
-        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-        if not re.search(regex, email):
-            print('not a valid email')
-            print("not great success")
-            return False
 
         # check if there is username with this email
         self.cursor.execute("SELECT email FROM users")
@@ -71,21 +64,23 @@ class Db:
         return result
 
     def login(self, user):
-        email,password = user[0].lower(),user[1]
-        flag = False
-        self.cursor.execute("SELECT email,password FROM users")
-        result = self.cursor.fetchall()
-        for i in result:
-            if i[0] == email:
-                flag = True
-                if i[1] == password:
-                    print("login worked great success")
-                    return True
-                else:
-                    print("wrong password")
-                    print("not great success")
-                    return False
-        if not flag:
+        email, password = user[0].lower(), user[1]
+        # Update the SQL query to check for the email and access_with directly in the database
+        self.cursor.execute("SELECT password FROM users WHERE email=%s AND access_with='email'", (email,))
+        result = self.cursor.fetchone()  # fetchone() returns None if no match is found
+
+        if result:
+            # Since result is not None, a user with the email exists
+            stored_password = result[0]
+            if stored_password == password:
+                print("login worked great success")
+                return True
+            else:
+                print("wrong password")
+                print("not great success")
+                return False
+        else:
+            # No user found with the given email
             print('there is no email like this')
             print("not great success")
             return False

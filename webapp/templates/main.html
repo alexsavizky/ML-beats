@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main - ML-Beats</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Assuming the same CSS file is used -->
+    <link rel="stylesheet" href="../static/styles.css"> <!-- Assuming the same CSS file is used -->
 </head>
 <body>
     <button id="accessibilityButton" aria-label="Accessibility options">
-        <img src="assets/accessibility.png" alt="Accessibility options">
+        <img src="{{ url_for('static', filename='accessibility.png') }}" alt="Accessibility options">
     </button>
     <div class="content-containerV">
         <div class="file-drop-area">
@@ -21,6 +21,6 @@
     </div>
     
     
-    <script src="script.js"></script>
+    <script src="../static/script.js"></script>
 </body>
 </html>

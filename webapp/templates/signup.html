@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ML-Beats</title>
+    <link rel="stylesheet" href="../static/styles.css"> <!-- Link to your existing CSS file -->
+</head>
+<body>
+    <button id="accessibilityButton" aria-label="Accessibility options">
+        <img src="{{ url_for('static', filename='accessibility.png') }}" alt="Accessibility options">
+    </button>
+    <div class="login-container"> <!-- Use the same container for consistent styling -->
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Music Logo" class="login-logo" onclick="location.href='index.html';">
+            <hr class="separator">
+        </div>
+        <form id="signup-form" class="login-form"> <!-- Reuse login-form styles for consistency -->
+            <input type="text"  name = 'first_name' placeholder="First Name" required>
+            <input type="text" name = 'last_name' placeholder="Last Name" required>
+            <input type="email"  name = 'email'placeholder="Email Address" required>
+            <input type="password" name = 'password' placeholder="Password" required>
+            <input type="password" name = 'passwordRepeat'  placeholder="Confirm Password" required>
+            <div id="errorMessage" style="color: red;"></div>
+            <button type="submit">Register</button>
+            <p class="signup-prompt">Already have an account? <a href="/login">Login here</a>.</p>
+        </form>
+    </div>
+    <script src="../static/signup.js"></script>
+</body>
+</html>

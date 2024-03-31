@@ -1,5 +1,5 @@
 import json
-from flask import Flask, redirect, url_for, session,request
+from flask import Flask, redirect, url_for, session,request,render_template,jsonify
 from authlib.integrations.flask_client import OAuth
 from db import Db
 
@@ -29,13 +29,18 @@ google = oauth.register(
 )
 
 @app.route('/')
-def index():
-    email = session.get('email', None)
-    if email:
-        return f'Hello, {email}! <a href="/disconnect">Disconnect</a>'
-    else:
-        return 'Hello, please <a href="/login_google">login</a>'
+def index_page():
+    return render_template('index.html')
+@app.route('/main')
+def main_page():
+    return render_template('main.html')
 
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
+@app.route('/signup')
+def signup_page():
+    return render_template('signup.html')
 @app.route('/disconnect')
 def disconnect():
     session.pop('email', None)
@@ -56,22 +61,35 @@ def authorize():
     with Db() as db:
          db.insert_user(user)
 
-    return redirect('/')
+    return redirect('/main')
 
-@app.route('/signup', methods=['POST'])
+@app.route('/signup_email', methods=['POST'])
 def signup():
-    user = (request.form['email'] , request.form['password'], 'email',request.form['first_name'],request.form['last_name'])
-    with Db() as db:
-         db.insert_user(user)
+    data = request.get_json()  # Get data as JSON
+    user = (data['email'] , data['password'], 'email',data['first_name'],data['last_name'])
+    try:
+        with Db() as db:
+             val = db.insert_user(user)
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': 'signup failed - database problem'}), 401
+    else:
+        if val:
+            return jsonify({'status': 'success', 'message': 'signup successful'})
+        else:
+            return jsonify({'status': 'error', 'message': 'there is already user with this email'})
 
-@app.route('/login', methods=['POST'])
+@app.route('/login_email', methods=['POST'])
 def login_via_email():
-    user = (request.form['email'], request.form['password'])
+    data = request.get_json()  # Get data as JSON
+    user = (data['email'], data['password'])
     with Db() as db:
         val = db.login(user)
     if val:
         session['email'] = user[0]
-        print('ccol cool cool')
+        print('cool cool cool')
+        return jsonify({'status': 'success', 'message': 'Login successful'})
+    else:
+        return jsonify({'status': 'error', 'message': 'Login failed'}), 401
 
 
 if __name__ == "__main__":
