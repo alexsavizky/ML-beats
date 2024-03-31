@@ -1,0 +1,226 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #282828; /* Dark background for a music vibe */
+    font-family: 'Roboto', sans-serif; /* Apply Roboto globally */
+}
+
+.container {
+    text-align: center;
+}
+
+.logo img {
+    max-width: 60%;
+    margin-bottom: 20px;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('.assets/fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('.assets/fonts/Roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+/* Keep all your previous styles and make the following updates/additions */
+
+.login-buttons button {
+    display: block;
+    width: 220px; /* Maintain size for a modern look */
+    padding: 15px; /* Increased padding for a better touch */
+    margin: 15px auto; /* Adjust margin for optimal spacing */
+    border: none;
+    border-radius: 30px; /* More pronounced rounded corners for a sleek look */
+    background-color: #48adf0;
+    color: white;
+    font-size: 18px; /* Slightly larger font size for readability */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Enhanced shadow for depth */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500; /* Medium weight for clarity */
+    letter-spacing: 0.5px; /* Slight letter-spacing for a modern touch */
+}
+
+.login-buttons button:hover {
+    transform: translateY(-3px); /* Subtle lift effect */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* More pronounced shadow on hover */
+    background-color: #3f9bdf; /* A slightly darker shade of green for depth */
+
+}
+
+/* Style for the Google login button to fit the music theme */
+#loginGoogle {
+    background-color: #4B4B4B; /* A sleek, dark grey to complement the green and fit the modern aesthetic */
+    color: white; /* Ensure text color is white for contrast */
+}
+
+#loginGoogle:hover {
+    background-color: #626262; /* A slightly lighter grey on hover */
+}
+
+#accessibilityButton {
+    position: fixed; /* Fixed positioning to stay visible on scroll */
+    top: 20px; /* Adjust based on desired spacing from the top */
+    left: 20px; /* Adjust based on desired spacing from the left */
+    background-color: transparent; /* Assuming a transparent background */
+    border: none; /* Removes the default button border */
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    padding: 10px; /* Adjust padding around the icon */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+
+#accessibilityButton img {
+    width: 40px; /* Initial size of the icon, adjust as needed */
+    height: auto; /* Maintains aspect ratio of the icon */
+}
+
+#accessibilityButton:hover {
+    transform: scale(1.2); /* Enlarges the button by 20% on hover */
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px; /* Limits the width of the form for better focus */
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.login-logo {
+    width: 150px; /* Smaller logo for the login page */
+    height: auto;
+    margin: 0 auto 10px; /* Centers the logo and adds space below */
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+}
+.login-logo:hover{
+    transform: scale(1.05); /* Enlarges the button by 20% on hover */
+}
+
+.separator {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #48adf0, rgba(0, 0, 0, 0)); /* Stylish separator */
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 20px;
+    border: 1px solid #ddd; /* Subtle border */
+    background-color: #282828; /* Dark input fields for contrast */
+    color: white; /* Text color for readability */
+    font-size: 16px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #48adf0; /* Spotify green */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #3f9bdf; /* Darker green on hover */
+}
+
+.signup-prompt {
+    margin-top: 20px;
+    color: white;
+    font-size: 14px;
+}
+
+.signup-prompt a {
+    color: #48adf0; /* Vibrant blue for contrast and to draw attention */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.signup-prompt a:hover {
+    text-decoration: underline; /* Underline on hover for interaction */
+}
+
+.content-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.file-drop-area {
+    border: 2px dashed #48adf0; /* Vibrant blue to match your theme */
+    border-radius: 20px; /* Rounded corners for a modern look */
+    width: 60%; /* Or any size you prefer */
+    height: 200px; /* Or any size you prefer */
+    line-height: 200px; /* Aligns text vertically */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    margin: 20px;
+}
+
+.file-drop-area a {
+    color: #48adf0; /* Make the 'browse' link stand out */
+    text-decoration: underline;
+}
+
+.file-drop-area a:hover {
+    color: #3f9bdf; /* Darker shade for hover effect */
+}
+
+.start-button {
+    display: inline-flex; /* Aligns text and icon side by side */
+    align-items: center; /* Centers items vertically */
+    background-color: #48adf0; /* Vibrant blue to match your theme */
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    font-weight: 500; /* Medium weight for clarity */
+    border: none;
+    border-radius: 30px; /* Rounded corners for a modern look */
+    padding: 12px 24px; /* Spacing around text and icon */
+    margin-top: 20px; /* Space between file-drop area and button */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Enhanced shadow for depth */
+}
+
+.start-button:hover {
+    background-color: #3f9bdf; /* A slightly darker shade for hover */
+    transform: translateY(-3px); /* Subtle lift effect */
+}
+
+.content-containerV {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column; /* This stacks children vertically */
+}

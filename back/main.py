@@ -30,8 +30,16 @@ google = oauth.register(
 
 @app.route('/')
 def index():
-    email = dict(session).get('email', None)
-    return f'Hello, {email}!' if email else 'Hello, please <a href="/login_google">login</a>'
+    email = session.get('email', None)
+    if email:
+        return f'Hello, {email}! <a href="/disconnect">Disconnect</a>'
+    else:
+        return 'Hello, please <a href="/login_google">login</a>'
+
+@app.route('/disconnect')
+def disconnect():
+    session.pop('email', None)
+    return redirect('/')
 
 @app.route('/login_google')
 def login_with_google():
@@ -64,11 +72,6 @@ def login_via_email():
     if val:
         session['email'] = user[0]
         print('ccol cool cool')
-
-@app.route('/disconnect', methods=['GET'])
-def disconnect():
-    session['email'] = None
-
 
 
 if __name__ == "__main__":

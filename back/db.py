@@ -9,14 +9,15 @@ class Db:
     def __init__(self):
         # Connect to the MySQL database
         load_dotenv()
-        host, user, password, database = 'localhost', 'root', '123456', 'mlbeats'
-
+        host, user, password, database = os.getenv("host"), os.getenv("user"), os.getenv("password"), os.getenv(
+            "database")
         self.mydb = mysql.connector.connect(
             host=host,
             user=user,
             password=password,
             database=database
         )
+
         print('db connect great success')
         self.cursor = self.mydb.cursor()
 
@@ -141,6 +142,8 @@ class Db:
         self.mydb.commit()
         return True
 
-with Db() as db:
-    db.create_user_table()
+
+db = Db()
+# with Db() as db:
+#     db.create_user_table()
 
