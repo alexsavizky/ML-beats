@@ -66,7 +66,7 @@ def authorize():
 @app.route('/signup_email', methods=['POST'])
 def signup():
     data = request.get_json()  # Get data as JSON
-    user = (data['email'] , data['password'], 'email',data['first_name'],data['last_name'])
+    user = (data['email'], data['password'], 'email', data['first_name'], data['last_name'])
     try:
         with Db() as db:
              val = db.insert_user(user)
