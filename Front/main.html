@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main - ML-Beats</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming the same CSS file is used -->
+</head>
+<body>
+    <button id="accessibilityButton" aria-label="Accessibility options">
+        <img src="assets/accessibility.png" alt="Accessibility options">
+    </button>
+    <div class="content-containerV">
+        <div class="file-drop-area">
+            <input type="file" id="fileInput" style="display: none;" />
+            <p id="fileName">Drag a mp3 file here or <a href="#" onclick="document.getElementById('fileInput').click(); return false;">browse</a> to make some Lo-Fi magic</p>
+        </div>
+        <button class="start-button" id="startButton">
+            Start
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let selectedFile;
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            var file = event.target.files[0];
+            if (file) {
+                selectedFile = file; // Store the selected file
+                document.getElementById('fileName').textContent = file.name; // Show file name
+            }
+        });
+
+        document.getElementById('startButton').addEventListener('click', function() {
+            if (selectedFile) {
+                uploadFile(selectedFile);
+            } else {
+                alert('Please select a file first.');
+            }
+        });
+
+        function uploadFile(file) {
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('File uploaded successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('File upload failed.');
+            });
+        }
+    </script>
+</body>
+</html>
