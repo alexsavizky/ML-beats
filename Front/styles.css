@@ -212,7 +212,7 @@ body, html {
 
 .start-button:hover {
     background-color: #3f9bdf; /* A slightly darker shade for hover */
-    transform: translateY(-3px); /* Subtle lift effect */
+    /*transform: translateY(-3px); !* Subtle lift effect *!*/
 }
 
 .content-containerV {

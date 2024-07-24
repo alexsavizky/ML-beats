@@ -27,6 +27,22 @@
         #audioPlayer {
             margin-top: 10px;
         }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            max-width: 150px; /* Adjust size as needed */
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.1); /* Slightly enlarge the logo on hover */
+        }
     </style>
 </head>
 <body>
@@ -34,6 +50,9 @@
         <img src="/Front/assets/accessibility.png" alt="Accessibility options"> <!-- Correct path to accessibility.png -->
     </button>
     <div class="content-containerV">
+        <div class="logo-container">
+            <img src="/Front/assets/logo.jpg" alt="Logo"> <!-- Correct path to logo.png -->
+        </div>
         <div class="file-drop-area">
             <input type="file" id="fileInput" style="display: none;" />
             <p id="fileName">Drag a mp3 file here or <a href="#" onclick="document.getElementById('fileInput').click(); return false;">browse</a> to make some Lo-Fi magic</p>
