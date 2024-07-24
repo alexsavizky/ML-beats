@@ -4,23 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main - ML-Beats</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Assuming the same CSS file is used -->
+    <link rel="stylesheet" href="/Front/styles.css"> <!-- Correct path to styles.css -->
+    <style>
+        .file-drop-area {
+            border: 2px dotted #48adf0; /* Vibrant blue to match your theme */
+            border-radius: 20px; /* Rounded corners for a modern look */
+            width: 60%; /* Or any size you prefer */
+            height: 200px; /* Or any size you prefer */
+            line-height: 1.5; /* Adjust line height for spacing */
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            margin: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #audioPlayer {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <button id="accessibilityButton" aria-label="Accessibility options">
-        <img src="assets/accessibility.png" alt="Accessibility options">
+        <img src="/Front/assets/accessibility.png" alt="Accessibility options"> <!-- Correct path to accessibility.png -->
     </button>
     <div class="content-containerV">
         <div class="file-drop-area">
             <input type="file" id="fileInput" style="display: none;" />
             <p id="fileName">Drag a mp3 file here or <a href="#" onclick="document.getElementById('fileInput').click(); return false;">browse</a> to make some Lo-Fi magic</p>
+            <audio id="audioPlayer" controls style="display: none;"></audio>
         </div>
         <button class="start-button" id="startButton">
             Start
         </button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="/Front/script.js"></script> <!-- Correct path to script.js -->
     <script>
         let selectedFile;
 
@@ -29,6 +53,11 @@
             if (file) {
                 selectedFile = file; // Store the selected file
                 document.getElementById('fileName').textContent = file.name; // Show file name
+
+                var audioPlayer = document.getElementById('audioPlayer');
+                var fileURL = URL.createObjectURL(file);
+                audioPlayer.src = fileURL;
+                audioPlayer.style.display = 'block'; // Show the audio player
             }
         });
 
@@ -48,14 +77,19 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log('Success:', data);
                 alert('File uploaded successfully!');
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('File upload failed.');
+                alert('File upload failed. See console for details.');
             });
         }
     </script>
