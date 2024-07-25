@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main - ML-Beats</title>
     <link rel="stylesheet" href="/Front/styles.css"> <!-- Correct path to styles.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"> <!-- Include Google Font -->
     <style>
         .file-drop-area {
             border: 2px dotted #48adf0; /* Vibrant blue to match your theme */
@@ -43,15 +44,79 @@
         .logo-container img:hover {
             transform: scale(1.1); /* Slightly enlarge the logo on hover */
         }
+
+        @keyframes slideInFromTop {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif; /* Apply new font */
+            font-size: 18px;
+            align-items: center;
+            animation: slideInFromTop 0.8s ease-out;
+        }
+
+        .menu a {
+            color: #0872b9; /* Darker color to match the theme */
+            text-decoration: none;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .menu a:hover {
+            color: #349fd9; /* Slightly lighter shade for hover effect */
+            border-bottom: 2px solid #349fd9;
+        }
+
+        .content-containerV {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            z-index: 1000;
+            display: none; /* Initially hidden */
+        }
     </style>
 </head>
 <body>
-    <button id="accessibilityButton" aria-label="Accessibility options">
+    <button id="accessibilityButton" aria-label="Accessibility options" style="position: fixed; top: 20px; left: 20px;">
         <img src="/Front/assets/accessibility.png" alt="Accessibility options"> <!-- Correct path to accessibility.png -->
     </button>
+    <div class="menu">
+        <a href="#top-creations">Top Creations</a>
+        <a href="#home">Homepage</a>
+        <a href="#about-us">About Us</a>
+        <a href="#contact">Contact</a>
+    </div>
     <div class="content-containerV">
         <div class="logo-container">
-            <img src="/Front/assets/logo.jpg" alt="Logo"> <!-- Correct path to logo.png -->
+            <img src="/Front/assets/logo.jpg" alt="Logo">
         </div>
         <div class="file-drop-area">
             <input type="file" id="fileInput" style="display: none;" />
@@ -61,6 +126,10 @@
         <button class="start-button" id="startButton">
             Start
         </button>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        Loading...
     </div>
 
     <script src="/Front/script.js"></script> <!-- Correct path to script.js -->
@@ -77,16 +146,25 @@
                 var fileURL = URL.createObjectURL(file);
                 audioPlayer.src = fileURL;
                 audioPlayer.style.display = 'block'; // Show the audio player
+
+                localStorage.setItem('selectedSong', fileURL); // Store the file URL in localStorage
             }
         });
 
         document.getElementById('startButton').addEventListener('click', function() {
             if (selectedFile) {
-                uploadFile(selectedFile);
+                showLoadingOverlay();
+                setTimeout(function() {
+                    window.location.href = 'download.html';
+                }, 3000); // Simulate loading for 3 seconds
             } else {
                 alert('Please select a file first.');
             }
         });
+
+        function showLoadingOverlay() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
 
         function uploadFile(file) {
             var formData = new FormData();

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - ML-Beats</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet"> <!-- Include Google Font -->
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 30px; /* Move the content up */
+        }
+
+        .menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            align-items: flex-end;
+            animation: slideInFromTop 0.8s ease-out;
+        }
+
+        .menu a {
+            color: #0872b9;
+            text-decoration: none;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .menu a:hover {
+            color: #349fd9;
+            border-bottom: 2px solid #349fd9;
+        }
+
+        @keyframes slideInFromTop {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .download-image {
+            margin: 0; /* Remove margin */
+        }
+
+        .download-image img {
+            max-width: 400px;
+            height: auto;
+        }
+
+        .download-message {
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            color: white;
+            margin-top: 20px; /* Add some space above the message */
+        }
+
+        .download-message a {
+            color: #0872b9;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .download-message a:hover {
+            color: #349fd9;
+        }
+
+        #audioPlayer {
+            display: block; /* Make sure it's a block element */
+            margin: 0 auto; /* Center the audio player */
+            margin-top: 10px; /* Space between the image and the audio player */
+        }
+    </style>
+</head>
+<body>
+    <button id="accessibilityButton" aria-label="Accessibility options" style="position: fixed; top: 20px; left: 20px;">
+        <img src="assets/accessibility.png" alt="Accessibility options">
+    </button>
+    <div class="menu">
+        <a href="#top-creations">Top Creations</a>
+        <a href="#home">Homepage</a>
+        <a href="#about-us">About Us</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <div class="container">
+        <div class="download-image">
+            <img src="assets/song_ready.png" alt="Your song is ready" id="songReadyImage"> <!-- Placeholder image -->
+        </div>
+        <audio id="audioPlayer" controls style="display: none;"></audio>
+        <div class="download-message">
+            Your download will start in a few seconds. If your download does not start, please <a href="#" onclick="startDownload()">click here</a>.
+        </div>
+    </div>
+    <script>
+        function startDownload() {
+            // Implement download logic here
+            alert('Starting download...');
+        }
+
+        // Simulate automatic download start
+        setTimeout(startDownload, 3000);
+
+        // Simulate adding the selected song to the audio player
+        document.addEventListener('DOMContentLoaded', function() {
+            var audioPlayer = document.getElementById('audioPlayer');
+            var fileURL = localStorage.getItem('selectedSong'); // Retrieve the file URL from localStorage
+            if (fileURL) {
+                audioPlayer.src = fileURL;
+                audioPlayer.style.display = 'block'; // Show the audio player
+            }
+        });
+    </script>
+</body>
+</html>
