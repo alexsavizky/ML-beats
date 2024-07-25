@@ -2,6 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm,pycharm+iml,pycharm+all,django,flask
 
 ### Django ###
+*.mp3
+*.wav
+*.mid
 *.log
 *.pot
 *.pyc
