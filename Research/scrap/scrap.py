@@ -1,38 +1,48 @@
-from pytube import Playlist, YouTube
-import csv
 import os
+import time
+import yt_dlp
+from tqdm import tqdm
 
+def download_video(url, download_path, index):
+    try:
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'outtmpl': os.path.join(download_path, '%(title)s.%(ext)s'),
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+            'ignoreerrors': True,
+        }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+        print(f'Downloaded video {index}')
+    except Exception as e:
+        print(f"Error downloading video {index}: {e}")
 
-def download_playlist_audio(playlist_url, download_path='raw_music_pop', csv_file_path='download_log_pop.csv'):
-    # Ensure the download directory exists
+def download_playlist_in_chunks(playlist_url, download_path='downloads2', chunk_size=500):
+    ydl_opts = {
+        'extract_flat': True,
+        'ignoreerrors': True,
+    }
     os.makedirs(download_path, exist_ok=True)
 
-    # Initialize the CSV file and write the headers
-    with open(csv_file_path, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(['Index', 'Performer', 'Name of the Song'])
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        playlist_info = ydl.extract_info(playlist_url, download=False)
+        video_urls = [entry['url'] for entry in playlist_info['entries']]
 
-    playlist = Playlist(playlist_url)
-    print(f'Downloading playlist: {playlist.title}')
+    total_videos = len(video_urls)
+    print(f'Total videos in playlist: {total_videos}')
 
-    for index, video_url in enumerate(playlist.video_urls, start=1):
-        try:
-            video = YouTube(video_url)
-            audio_stream = video.streams.get_audio_only()
-            audio_file_path = audio_stream.download(output_path=download_path)
-            mp3_filename = audio_file_path.replace('.mp4', '.mp3')
+    for i in range(0, total_videos, chunk_size):
+        for j in tqdm(range(i, min(i + chunk_size, total_videos))):
+            download_video(video_urls[j], download_path, j + 1)
+        print(f"Finished downloading videos {i + 1} to {min(i + chunk_size, total_videos)}")
+        if i + chunk_size < total_videos:
+            print("Taking a 15-minute break...")
+            time.sleep(900)  # Pause for 15 minutes between chunks
 
-            # Log the download
-            with open(csv_file_path, mode='a', newline='', encoding='utf-8') as file:
-                writer = csv.writer(file)
-                writer.writerow([index, video.author, video.title])
-
-            print(f'Downloaded: {mp3_filename}')
-        except Exception as e:
-            print(f'Error downloading {video_url}: {e}')
-
-
-# Replace 'YOUR_PLAYLIST_URL_HERE' with the actual playlist URL
-# playlist_url = 'https://www.youtube.com/watch?v=WTsmIbNku5g&list=PLOzDu-MXXLliO9fBNZOQTBDddoA3FzZUo'
-playlist_url = "https://www.youtube.com/watch?v=XXYlFuWEuKI&list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj"
-download_playlist_audio(playlist_url)
+# Replace with your actual playlist URL
+playlist_url = "https://youtube.com/playlist?list=PLHUfq0EyQKo50y57fa_wkxCse2OSOuno_&si=vUbuRJpoi-Am4aEK"
+download_playlist_in_chunks(playlist_url)
