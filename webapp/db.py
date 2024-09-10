@@ -28,6 +28,7 @@ class Db:
         self.mydb.commit()
         self.cursor.close()
         self.mydb.close()
+        print('DB disconnected')
 
     # Create a table named Users
     def create_user_table(self):
