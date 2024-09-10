@@ -104,6 +104,3 @@ A basic web interface allows users to upload their own popular music and transfo
 - **Additional Genres**: Extending the project to support additional genre transformations.
 - **Real-Time Conversion**: Implementing real-time conversion and streaming of transformed audio.
 
-### License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
